@@ -1,0 +1,39 @@
+{
+    "name": "dotplant/emails",
+    "description": "",
+    "type": "dotplant-extension",
+    "keywords": ["yii2", "dotplant", "emails"],
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Pavel Fedotov",
+            "email": "fps.06@mail.ru"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "yiisoft/yii2": "~2.0.0",
+        "yiisoft/yii2-swiftmailer": "~2.0.0",
+        "devgroup/yii2-extensions-manager": "dev-master",
+        "devgroup/yii2-multilingual": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "DotPlant\\Emails\\": "src/"
+        }
+    },
+    "extra": {
+        "yii2-extension": {
+            "name": "DotPlant Emails",
+            "name_ru": "DotPlant Письма",
+            "iconUrl": "",
+            "description_ru": ""
+        },
+        "migrationPath": [
+            "src/migrations"
+        ],
+        "configurables": "src/configurables.php",
+        "translationCategory": "dotplant.emails"
+    }
+}
