@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ab968a46e65b4578d17fcadd4e0550b0",
-    "content-hash": "d3c82a6059c13067dde6c0cc473edfa2",
+    "hash": "ec044b96c13632bf6a7468d8fd97aab2",
+    "content-hash": "bb0da6b97fe5f9e486e3dc836a0cb0a7",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -464,6 +464,58 @@
                 "yii2"
             ],
             "time": "2016-08-26 11:31:35"
+        },
+        {
+            "name": "devgroup/yii2-entity",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DevGroup-ru/yii2-entity.git",
+                "reference": "fcffc818143385a643c227f1ada814052f2ca1bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DevGroup-ru/yii2-entity/zipball/fcffc818143385a643c227f1ada814052f2ca1bb",
+                "reference": "fcffc818143385a643c227f1ada814052f2ca1bb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0",
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "require-dev": {
+                "codeception/codeception": "^2.2",
+                "yiisoft/yii2-codeception": "~2.0.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "DevGroup\\Entity\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Kozhevnikov",
+                    "email": "b37hr3z3n@gmail.com"
+                },
+                {
+                    "name": "Pavel Fedotov",
+                    "email": "fps.06@mail.ru"
+                }
+            ],
+            "description": "Yii2 entity",
+            "keywords": [
+                "active-record",
+                "ar",
+                "entity",
+                "extension",
+                "yii2"
+            ],
+            "time": "2016-09-15 09:46:17"
         },
         {
             "name": "devgroup/yii2-extensions-manager",
@@ -1841,7 +1893,9 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "devgroup/yii2-extensions-manager": 20,
-        "devgroup/yii2-multilingual": 20
+        "devgroup/yii2-multilingual": 20,
+        "devgroup/yii2-admin-utils": 20,
+        "devgroup/yii2-entity": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
