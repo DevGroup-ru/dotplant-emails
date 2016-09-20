@@ -16,6 +16,25 @@ use yii\helpers\Json;
 class EmailController extends Controller
 {
     /**
+     * Send the message via swift mailer
+     * @param Message $message
+     * @return bool
+     */
+    private function send($message)
+    {
+        $widget = new Widget;
+        $templateParams = Json::decode($message->packed_json_template_params);
+        return \Yii::$app->mailer
+            ->compose($message->template->body_view_file, $templateParams)
+            ->setFrom(Module::module()->senderEmail)
+            ->setTo($message->email)
+            ->setSubject(
+                $widget->render($message->template->subject_view_file, $templateParams)
+            )
+            ->send();
+    }
+
+    /**
      * Send test message
      * @param string $email the email address
      */
@@ -25,7 +44,7 @@ class EmailController extends Controller
     }
 
     /**
-     * Send the message
+     * Send the message by id
      * @param int $id the message id
      */
     public function actionSend($id)
@@ -33,17 +52,7 @@ class EmailController extends Controller
         $message = Message::findOne($id);
         if ($message !== null) {
             try {
-                $widget = new Widget;
-                $templateParams = Json::decode($message->packed_json_template_params);
-                \Yii::$app->mailer
-                    ->compose($message->template->body_view_file, $templateParams)
-                    ->setFrom(Module::module()->senderEmail)
-                    ->setTo($message->email)
-                    ->setSubject(
-                        $widget->render($message->template->subject_view_file, $templateParams)
-                    )
-                    ->send();
-                $message->status = Message::STATUS_SUCCESS;
+                $message->status = $this->send($message) > 0 ? Message::STATUS_SUCCESS : Message::STATUS_ERROR;
                 $message->save(true, ['status']);
             } catch (\Exception $e) {
                 $message->status = Message::STATUS_ERROR;
@@ -53,6 +62,24 @@ class EmailController extends Controller
         } else {
             $this->stdout("Message not found\n");
             exit(1);
+        }
+    }
+
+    /**
+     * Send failed messages
+     */
+    public function sendFailed()
+    {
+        $messages = Message::findAll(['status' => Message::STATUS_ERROR]);
+        foreach ($messages as $message) {
+            try {
+                $message->status = $this->send($message) > 0 ? Message::STATUS_SUCCESS : Message::STATUS_ERROR;
+                $message->save(true, ['status']);
+            } catch (\Exception $e) {
+                $message->status = Message::STATUS_FATAL_ERROR;
+                $message->save(true, ['status']);
+                $this->stderr($e->getMessage());
+            }
         }
     }
 }
