@@ -44,7 +44,7 @@ class EmailHelper
         foreach ((array) $email as $singleEmail) {
             $message = new Message;
             $message->attributes = [
-                'email' => $singleEmail,
+                'email' => trim($singleEmail),
                 'template_id' => $templateId,
                 'packed_json_template_params' => Json::encode($templateParams),
                 'status' => Message::STATUS_NEW,

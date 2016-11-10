@@ -27,7 +27,7 @@ class EmailController extends Controller
         return \Yii::$app->mailer
             ->compose($message->template->body_view_file, $templateParams)
             ->setFrom(Module::module()->senderEmail)
-            ->setTo($message->email)
+            ->setTo(trim($message->email))
             ->setSubject(
                 $widget->render($message->template->subject_view_file, $templateParams)
             )
