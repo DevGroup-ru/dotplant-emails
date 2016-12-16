@@ -22,11 +22,13 @@ class EmailHelper
      * @param string $groupName
      * @throws ServerErrorHttpException
      */
-    public static function runTask($command, $groupName)
+    public static function runTask($command, $groupName, $immediate = false)
     {
         $task = ExtensionDataHelper::buildTask($command, $groupName);
         if ($task->registerTask()) {
-            DeferredHelper::runImmediateTask($task->model()->id);
+            if ($immediate) {
+                DeferredHelper::runImmediateTask($task->model()->id);
+            }
         } else {
             throw new ServerErrorHttpException("Unable to start task");
         }
